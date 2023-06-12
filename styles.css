@@ -38,6 +38,13 @@ main {
     border-radius: 15px;
     margin-top: 1em;
     margin-bottom: 2em;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.display {
+    margin-right: 0.5em;
+    font-size: 1.5em;
 }
 
 .keypad {
