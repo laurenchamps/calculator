@@ -22,6 +22,8 @@ main {
     border-radius: 20px;
     background-color: #2f2e2e;
     padding: 1em 0.5em;
+    display: flex;
+    flex-direction: column;
 }
 
 .screen-container {
@@ -41,7 +43,25 @@ main {
 .keypad {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 0.5em;
+    height: 100%;
+    width: 95%;
+    align-self: center;
 }
+
+.key {
+    border-radius: 5px;
+}
+
+#zero {
+    grid-column: span 2;
+}
+
+#equals {
+    grid-row: span 2;
+}
+
 
 @media (min-width: 900px) {
     .calculator {
