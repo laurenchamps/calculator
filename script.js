@@ -2,6 +2,8 @@
 const numBtns = document.querySelectorAll('.num');
 const operatorBtns = document.querySelectorAll('.operator');
 const keypad = document.querySelector('.keypad');
+const equalsBtn = document.querySelector('#equals');
+const clearBtn = document.querySelector('#clear');
 
 // let num1;
 // let num2;
@@ -9,15 +11,20 @@ const keypad = document.querySelector('.keypad');
 
 // Complete mathematical operation
 function operate(num1, operator, num2) {
+    let result;
     switch(operator) {
         case '+':
-            return num1 + num2;
+            result = num1 + num2;
+            return result;
         case '-':
-            return num1 - num2;
+            result = num1 - num2;
+            return result;
         case'*':
-            return num1 * num2;
+            result = num1 * num2;
+            return result;
         case '/':
-            return num1 / num2;
+            result = num1 / num2;
+            return result;
     }
 }
 
@@ -45,9 +52,10 @@ function displayValue(digit) {
 
 
 let num1 = null;
-let num2 = 0;
+let num2 = null;
 let operator = null;
-let tempValue = 0;
+let tempValue = null;
+let tempOperator = null;
 let numberStarted = false;
 
 function setMode(e) {
@@ -59,7 +67,7 @@ function setMode(e) {
         // Toggle numberStarted to true
         isNumberStarted(true);
         // Display number entered
-        tempValue = displayValue(e.target.innerText);
+        tempValue = Number(displayValue(e.target.innerText));
     }
     
     if (e.target.classList.contains("operator")) {
@@ -69,36 +77,46 @@ function setMode(e) {
         operator = e.target.innerText;
         setOperator(operator);
 
+        // Set first or second number value
         if (num1 === null) {
             let numTest = setFirstValue(tempValue);
-            clearTempValue();
+            setTempValue(null);
             console.log(numTest);
             console.log({num1})
         } else {
             let secondNumTest = setSecondValue(tempValue);
-            console.log(secondNumTest);
+            console.log({num2});
         }
+
+        // let opResult = operate(num1, operator, num2);
+        // console.log({opResult});
 
     }
 }
 
 function setFirstValue(newValue) {
-    num1 = Number(newValue);
+    num1 = newValue;
     return num1;
 }
 
 function setSecondValue(newValue) {
-    num2 = Number(newValue);
+    num2 = newValue;
     return num2;
 }
 
+function setTempValue(newValue) {
+    tempValue = newValue;
+    return tempValue;
+}
+
 function setOperator(newOperator) {
-    operator = (newOperator);
+    operator = newOperator;
     return operator;
 }
 
-function clearTempValue() {
-    tempValue = null;
+function setTempOperator(newOperator) {
+    tempOperator = newOperator;
+    return tempOperator;
 }
 
 function isNumberStarted(boolean) {
@@ -110,6 +128,28 @@ function clearDisplay() {
     display.innerText = '';
 }
 
+function completeOperation(e) {
+    if (operator != null) {
+        setSecondValue(tempValue);
+        let result = operate(num1, operator, num2);
+        clearDisplay();
+        displayValue(result);
+        setFirstValue(result);
+        console.log({result});
+    }
+}
+
+function clearAll() {
+    clearDisplay();
+    setFirstValue(null);
+    setSecondValue(null);
+    setTempValue(null);
+    setOperator(null);
+    setTempOperator(null);
+}
 
 // Event listeners
 keypad.addEventListener('click', setMode);
+equalsBtn.addEventListener('click', completeOperation);
+clearBtn.addEventListener('click', clearAll);
+
