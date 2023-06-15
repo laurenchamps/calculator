@@ -14,6 +14,7 @@ body {
 button {
     font: inherit;
     cursor: pointer;
+    color: #000;
 }
 
 main {
