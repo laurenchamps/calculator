@@ -29,6 +29,10 @@ function operate(num1, operator, num2) {
             result = Number(num1 * num2);
             return result;
         case '/':
+            if(num2 === 0) {
+                result = 'calculator says no';
+                return result;
+            }
             result = Number(num1 / num2);
             return result;
     }
@@ -39,7 +43,7 @@ function displayValue(digit) {
     if (display.innerText.length >= 7) {
         return display.innerText;
     }
-    return display.innerText += digit;
+    return display.innerText += parseFloat((digit).toFixed(6));
 };
 
 function operateButtons(e) {
@@ -50,8 +54,8 @@ function operateButtons(e) {
             // Toggle numberStarted to true
             isNumberStarted(true);
             // Display number entered
-            display.innerText = (e.target.innerText);
-        } else {
+            display.innerText = e.target.innerText;
+        } else if (display.innerText.length < 10) {
             display.innerText += e.target.innerText;
         }
         tempValue = Number(display.innerText);
@@ -87,6 +91,7 @@ function operateButtons(e) {
     }
 }
 
+// Complete calculation when equals button clicked
 function operateEquals(e) {
     if (operator != null) {
         setSecondValue(tempValue);
@@ -151,5 +156,3 @@ function clearDisplay() {
 keypad.addEventListener('click', operateButtons);
 equalsBtn.addEventListener('click', operateEquals);
 clearAllBtn.addEventListener('click', clearAll);
-
-

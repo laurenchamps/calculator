@@ -6,24 +6,39 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 button {
     font: inherit;
+    cursor: pointer;
 }
 
 main {
     display: flex;
     justify-content: center;
-    padding-top: 4em;
+    flex: 1;
+}
+
+footer {
+    display: none;
+    text-align: center;
+    padding-bottom: 1em;
+    font-size: 0.8em;
+    font-family: Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .calculator {
     border-radius: 20px;
-    background-color: #2f2e2e;
+    background-color: #2f2e2ec8;
     padding: 1em 0.5em;
     display: flex;
     flex-direction: column;
+    height: 100vh;
+    height: 100dvh;
+    width: 100vw;
 }
 
 .screen-container {
@@ -32,19 +47,21 @@ main {
 }
 
 .screen {
-    background-color: #fff;
+    background-color: #f4f3f3;
     width: 95%;
-    height: 4em;
+    height: 8em;
     border-radius: 15px;
-    margin-top: 1em;
-    margin-bottom: 2em;
+    margin-top: 0.5em;
+    margin-bottom: 1em;
     display: flex;
     justify-content: flex-end;
+    align-items: center;
 }
 
-.display {
+#display {
     margin-right: 0.5em;
-    font-size: 1.5em;
+    font-size: 1.8em;
+    text-align: right;
 }
 
 .keypad {
@@ -59,6 +76,7 @@ main {
 
 .key {
     border-radius: 5px;
+    font-size: 1.2em;
 }
 
 .zero {
@@ -70,9 +88,21 @@ main {
 }
 
 
-@media (min-width: 900px) {
+@media (min-width: 500px) {
     .calculator {
-        width: 300px;
-        height: 400px;
+        max-width: 300px;
+        max-height: 400px;
+        margin: 6em 0;
+    }
+
+    .screen {
+        height: 6em;
+    }
+
+    footer {
+        display: block;
+        text-align: center;
+        padding-bottom: 1em;
+        font-size: 0.8em;
     }
 } 
