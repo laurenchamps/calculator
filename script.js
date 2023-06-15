@@ -3,7 +3,7 @@ const numBtns = document.querySelectorAll('.num');
 const operatorBtns = document.querySelectorAll('.operator');
 const keypad = document.querySelector('.keypad');
 const equalsBtn = document.querySelector('#equals');
-const clearBtn = document.querySelector('#clear');
+const clearAllBtn = document.querySelector('#clear-all');
 const display = document.querySelector('#display');
 
 // Complete mathematical operation
@@ -29,11 +29,9 @@ function operate(num1, operator, num2) {
 // Display numbers on screen
 function displayValue(digit) {
     if (display.innerText.length >= 7) {
-        return Number(display.innerText);
+        return display.innerText;
     }
-    display.innerText += digit;
-    let value = Number(display.innerText);
-    return value;
+    return display.innerText += digit;
 };
 
 let num1 = null;
@@ -45,7 +43,7 @@ let numberStarted = false;
 
 function operateButtons(e) {
     
-    if (e.target.classList.contains("num")) {
+    if (e.target.classList.contains("num") || e.target.id === 'decimal') {
         if (!numberStarted) {
             clearDisplay();
         }
@@ -62,12 +60,12 @@ function operateButtons(e) {
         // Set first or second number value
         if (num1 === null) {
             setFirstValue(tempValue);
-            setOperator(e.target.innerText);
+            setOperator(e.target.id);
             setTempValue(null);
         } else {
             clearDisplay();
             setSecondValue(tempValue);
-            setTempOperator(e.target.innerText);
+            setTempOperator(e.target.id);
             let result = operate(num1, operator, num2);
             displayValue(result);
             setFirstValue(result);
@@ -141,5 +139,5 @@ function clearDisplay() {
 // Event listeners
 keypad.addEventListener('click', operateButtons);
 equalsBtn.addEventListener('click', operateEquals);
-clearBtn.addEventListener('click', clearAll);
+clearAllBtn.addEventListener('click', clearAll);
 
