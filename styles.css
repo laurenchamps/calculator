@@ -61,7 +61,7 @@ main {
     border-radius: 5px;
 }
 
-#zero {
+.zero {
     grid-column: span 2;
 }
 

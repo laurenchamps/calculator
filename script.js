@@ -1,10 +1,19 @@
 // Get elements
-const numBtns = document.querySelectorAll('.num');
-const operatorBtns = document.querySelectorAll('.operator');
 const keypad = document.querySelector('.keypad');
-const equalsBtn = document.querySelector('#equals');
-const clearAllBtn = document.querySelector('#clear-all');
 const display = document.querySelector('#display');
+const numBtns = document.querySelectorAll('[data-number]');
+const operatorBtns = document.querySelectorAll('[data-operator]');
+const equalsBtn = document.querySelector('[data-equals]');
+const clearAllBtn = document.querySelector('[data-clear-all]');
+const clearBtn = document.querySelector('[data-clear]');
+
+let num1 = null;
+let num2 = null;
+let operator = null;
+let tempValue = null;
+let tempOperator = null;
+let numberStarted = false;
+let result;
 
 // Complete mathematical operation
 function operate(num1, operator, num2) {
@@ -25,7 +34,6 @@ function operate(num1, operator, num2) {
     }
 }
 
-
 // Display numbers on screen
 function displayValue(digit) {
     if (display.innerText.length >= 7) {
@@ -34,26 +42,27 @@ function displayValue(digit) {
     return display.innerText += digit;
 };
 
-let num1 = null;
-let num2 = null;
-let operator = null;
-let tempValue = null;
-let tempOperator = null;
-let numberStarted = false;
-
 function operateButtons(e) {
-    
-    if (e.target.classList.contains("num") || e.target.id === 'decimal') {
-        if (!numberStarted) {
+
+    if (e.target.matches('[data-number]')) {
+        if (numberStarted === false) {
             clearDisplay();
+            // Toggle numberStarted to true
+            isNumberStarted(true);
+            // Display number entered
+            display.innerText = (e.target.innerText);
+        } else {
+            display.innerText += e.target.innerText;
         }
-        // Toggle numberStarted to true
-        isNumberStarted(true);
-        // Display number entered
-        tempValue = Number(displayValue(e.target.innerText));
+        tempValue = Number(display.innerText);
+    }
+
+    if (e.target.matches('[data-clear]') && numberStarted) {
+        display.innerText = display.innerText.slice(0, -1);
+        tempvalue = Number(display.innerText);
     }
     
-    if (e.target.classList.contains("operator")) {
+    if (e.target.matches('[data-operator]')) {
         // Toggle numberStarted to false
         isNumberStarted(false);
 
@@ -73,6 +82,8 @@ function operateButtons(e) {
             setSecondValue(null);
             setTempValue(null);
         }
+
+        console.log(numberStarted, num1, operator);
     }
 }
 
@@ -140,4 +151,5 @@ function clearDisplay() {
 keypad.addEventListener('click', operateButtons);
 equalsBtn.addEventListener('click', operateEquals);
 clearAllBtn.addEventListener('click', clearAll);
+
 
