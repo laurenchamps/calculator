@@ -46,8 +46,8 @@ function displayValue(digit) {
     return display.innerText += parseFloat((digit).toFixed(6));
 };
 
+// Store and display numbers and operators when entered by user
 function operateButtons(e) {
-
     if (e.target.matches('[data-number]')) {
         if (numberStarted === false) {
             clearDisplay();
@@ -86,8 +86,6 @@ function operateButtons(e) {
             setSecondValue(null);
             setTempValue(null);
         }
-
-        console.log(numberStarted, num1, operator);
     }
 }
 
@@ -99,7 +97,6 @@ function operateEquals(e) {
             let result = operate(num1, operator, num2);
             clearDisplay();
             displayValue(result);
-            console.log({result});
             setFirstValue(null);
             setOperator(null);
             setSecondValue(null);
@@ -118,6 +115,7 @@ function clearAll() {
     setTempOperator(null);
 }
 
+// Change global variable values
 function setFirstValue(newValue) {
     num1 = newValue;
     return num1;
